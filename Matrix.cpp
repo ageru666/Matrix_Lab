@@ -1,23 +1,26 @@
 #include "Matrix.h"
-#include<iostream>
+#include <iostream>
 
-Matrix::Matrix(int a, int b) {
+Matrix::Matrix(int a, int b)
+{
     matrix = new std::complex<double> *[a];
-    for (int i = 0; i<height; i++)
-        matrix[i] = new std::complex<double> [b];
+    for (int i = 0; i < a; i++)
+        matrix[i] = new std::complex<double>[b];
 
     height = a;
     width = b;
 }
 
-Matrix::~Matrix() {
+Matrix::~Matrix()
+{
 
-    for (int i=0; i<height; i++)
+    for (int i = 0; i < height; i++)
         delete matrix[i];
 
     delete matrix;
 }
 
-std::complex<double> *Matrix::operator[](int i) {
+std::complex<double> *Matrix::operator[](int i)
+{
     return matrix[i];
 }
