@@ -1,5 +1,4 @@
 # Matrix_Lab
 Laboratory project for Algorithms and Complexity
-# UML overview
-![Some text](./classes.svg)
+# Classes overview
 <img src="./classes.svg">
