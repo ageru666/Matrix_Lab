@@ -17,11 +17,7 @@ protected:
 
 public:
     // Getters
-    inline size_t
-    height()
-    {
-        return _height;
-    }
+    inline size_t height() { return _height; }
     inline size_t width() { return _width; }
     inline std::complex<double> *operator[](size_t i)
     {
@@ -30,10 +26,9 @@ public:
     };
 
     // Constructors
-    Matrix(size_t a, size_t b);
-    Matrix(size_t a, size_t b, bool random_init);
-    Matrix(size_t a, size_t b, std::pair<double, double> **M);
-    Matrix(std::string filename);
+    Matrix(size_t a, size_t b, bool random_init = false);      // done
+    Matrix(size_t a, size_t b, std::pair<double, double> **M); // done
+    Matrix(std::string filename);                              // done
 
     // Destructor
     ~Matrix();
@@ -46,6 +41,11 @@ public:
     // Other methods
     std::complex<double> D();
     Matrix copy();
+
+    // output
+    void print();                                      // done
+    std::string str();                                 // done
+    void to_file(std::string filename = "matrix.txt"); // done
 };
 
 #endif

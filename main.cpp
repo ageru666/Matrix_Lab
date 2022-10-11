@@ -39,21 +39,7 @@ std::complex<double> determinant(int size, std::complex<double> **matrix)
 int main()
 {
 
-    Matrix m(8, 3);
-
-    std::complex<double> a(1, 1);
-
-    for (int i = 0; i < 8; i++)
-        for (int j = 0; j < 3; j++)
-        {
-            m[i][j] = std::complex<double>((i + 1), (j + 1));
-        }
-    for (int i = 0; i < 8; i++)
-    {
-        for (int j = 0; j < 3; j++)
-            std::cout << m[i][j] << ' ';
-        std::cout << '\n';
-    }
-
-    m[9][20];
+    Matrix m(10, 10, true);
+    m.print();
+    m.to_file("random_matrix.txt");
 }
