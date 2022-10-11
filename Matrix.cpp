@@ -19,10 +19,3 @@ Matrix::~Matrix()
 
     delete matrix;
 }
-
-std::complex<double> *Matrix::operator[](int i)
-{
-    if (i < height)
-        return matrix[i];
-    throw std::out_of_range(std::to_string(i) + " is out of matrix height range");
-}
