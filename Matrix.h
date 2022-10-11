@@ -8,17 +8,17 @@ class Matrix
 {
 private:
     std::complex<double> **matrix;
-    int height;
-    int width;
+    size_t height;
+    size_t width;
 
 public:
-    inline std::complex<double> *operator[](int i)
+    inline std::complex<double> *operator[](size_t i)
     {
         assert(i < height);
         return matrix[i];
     };
 
-    Matrix(int a, int b);
+    Matrix(size_t a, size_t b);
     ~Matrix();
 };
 
