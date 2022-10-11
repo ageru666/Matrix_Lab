@@ -54,4 +54,6 @@ int main()
             std::cout << m[i][j] << ' ';
         std::cout << '\n';
     }
+
+    m[9][20];
 }
