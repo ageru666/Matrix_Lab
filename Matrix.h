@@ -12,10 +12,16 @@ protected:
     size_t _width;
 
     // methods
+    Matrix strassenMultiplication(const Matrix &);
+    std::complex<double> determinant();
 
 public:
     // Getters
-    inline size_t height() { return _height; }
+    inline size_t
+    height()
+    {
+        return _height;
+    }
     inline size_t width() { return _width; }
     inline std::complex<double> *operator[](size_t i)
     {
@@ -39,6 +45,7 @@ public:
 
     // Other methods
     std::complex<double> D();
+    Matrix copy();
 };
 
 #endif
