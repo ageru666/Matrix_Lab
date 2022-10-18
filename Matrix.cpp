@@ -152,3 +152,48 @@ std::complex<double> Matrix::D() {
 
     return ans;
 }
+
+Matrix Matrix::GaussianInverse(Matrix mat) {
+
+    //throw error when _height != _width
+
+    //throw error when matrix's determinant = 0
+
+    size_t _size = mat.height();
+    Matrix inverse(_size, _size);
+
+    for (int i=0; i<_size; i++)
+        inverse[i][i] = 1;
+
+    for (int k=0; k<_size; k++)
+    {
+        std::complex<double> kk = mat[k][k];
+        for (int i=0; i<_size; i++) {
+            mat[k][i] /= kk;
+            inverse[k][i]/=kk;
+        }
+
+        for (int i=0; i<_size; i++)
+        {
+            if (i == k)
+                continue;
+            else
+            {
+                std::complex<double> div = mat[i][k]/mat[k][k];
+                for (int j=0; j<_size; j++)
+                {
+                    mat[i][j]-=div*mat[k][j];
+                    inverse[i][j]-=div*inverse[k][j];
+                }
+            }
+        }
+    }
+
+    for (int i=0; i<_size; i++)
+        for (int j=0; j<_size; j++)
+            if (abs(inverse[i][j]) < 1.0e-12)
+                inverse[i][j] = 0;
+
+
+    return inverse;
+}

@@ -4,7 +4,8 @@
 #define _INVERSION_H
 class Inversion
 {
-    virtual Matrix inverse(const Matrix &A) {}
+public:
+    virtual Matrix inverse(const Matrix &A) {} // DA FAQ?
 };
 
 #endif

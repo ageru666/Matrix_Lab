@@ -46,6 +46,10 @@ public:
     void print();                                      // done
     std::string str();                                 // done
     void to_file(std::string filename = "matrix.txt"); // done
+
+    //inverse
+    //later to be implemented in separate class
+    static Matrix GaussianInverse (Matrix mat);
 };
 
 #endif
