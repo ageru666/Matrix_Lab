@@ -70,6 +70,19 @@ Matrix::Matrix(std::string filename)
     }
 }
 
+Matrix::Matrix(Matrix &src) {
+    _height = src._height;
+    _width = src._width;
+
+    matrix = new std::complex<double> *[_height];
+    for (size_t i = 0; i < _height; i++)
+        matrix[i] = new std::complex<double>[_width];
+
+    for (int i=0; i<_height; i++)
+        for (int j=0; j<_width; j++)
+            matrix[i][j] = src[i][j];
+}
+
 Matrix::~Matrix()
 {
 
@@ -112,4 +125,30 @@ void Matrix::to_file(std::string filename)
     std::ofstream file(filename);
 
     file << this->str();
+}
+
+std::complex<double> Matrix::D() {
+
+    //throw error when _height != _width
+
+    Matrix det(*this);
+
+    for (int k=0; k<_height-1; k++)
+    {
+        for (int i=k+1; i<_height; i++)
+        {
+            std::complex<double> div = det[i][k]/det[k][k];
+            for (int j=k; j<_height; j++)
+            {
+                det[i][j]-=div*det[k][j];
+            }
+        }
+    }
+
+    std::complex<double> ans = {1,0};
+
+    for (int k=0; k<_height; k++)
+        ans*=det[k][k];
+
+    return ans;
 }

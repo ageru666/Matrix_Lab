@@ -8,4 +8,5 @@ include_directories(.)
 add_executable(Matrix_Lab
         main.cpp
         Matrix.cpp
-        Matrix.h)
+        Matrix.h
+        Inversion.hpp)

@@ -29,6 +29,7 @@ public:
     Matrix(size_t a, size_t b, bool random_init = false);      // done
     Matrix(size_t a, size_t b, std::pair<double, double> **M); // done
     Matrix(std::string filename);                              // done
+    Matrix(Matrix &src);                                       // done
 
     // Destructor
     ~Matrix();
@@ -40,7 +41,6 @@ public:
 
     // Other methods
     std::complex<double> D();
-    Matrix copy();
 
     // output
     void print();                                      // done
