@@ -40,7 +40,7 @@ public:
     Matrix operator*(const Matrix &);
 
     // Other methods
-    std::complex<double> D();
+    std::complex<double> D(size_t x_skip = -1, size_t y_skip = -1);
 
     // output
     void print();                                      // done

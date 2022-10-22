@@ -70,7 +70,8 @@ Matrix::Matrix(std::string filename)
     }
 }
 
-Matrix::Matrix(Matrix &src) {
+Matrix::Matrix(Matrix &src)
+{
     _height = src._height;
     _width = src._width;
 
@@ -78,8 +79,8 @@ Matrix::Matrix(Matrix &src) {
     for (size_t i = 0; i < _height; i++)
         matrix[i] = new std::complex<double>[_width];
 
-    for (int i=0; i<_height; i++)
-        for (int j=0; j<_width; j++)
+    for (int i = 0; i < _height; i++)
+        for (int j = 0; j < _width; j++)
             matrix[i][j] = src[i][j];
 }
 
@@ -127,73 +128,81 @@ void Matrix::to_file(std::string filename)
     file << this->str();
 }
 
-std::complex<double> Matrix::D() {
+std::complex<double> Matrix::D(size_t x_skip, size_t y_skip)
+{
 
-    //throw error when _height != _width
+    // throw error when _height != _width
 
     Matrix det(*this);
 
-    for (int k=0; k<_height-1; k++)
+    for (int k = 0; k < _height - 1; k++)
     {
-        for (int i=k+1; i<_height; i++)
+        if (k == y_skip)
+            continue;
+
+        for (int i = k + 1; i < _height; i++)
         {
-            std::complex<double> div = det[i][k]/det[k][k];
-            for (int j=k; j<_height; j++)
+            if (i == x_skip)
+                continue;
+
+            std::complex<double> div = det[i][k] / det[k][k];
+            for (int j = k; j < _height; j++)
             {
-                det[i][j]-=div*det[k][j];
+                det[i][j] -= div * det[k][j];
             }
         }
     }
 
-    std::complex<double> ans = {1,0};
+    std::complex<double> ans = {1, 0};
 
-    for (int k=0; k<_height; k++)
-        ans*=det[k][k];
+    for (int k = 0; k < _height; k++)
+        ans *= det[k][k];
 
     return ans;
 }
 
-Matrix Matrix::GaussianInverse(Matrix mat) {
+Matrix Matrix::GaussianInverse(Matrix mat)
+{
 
-    //throw error when _height != _width
+    // throw error when _height != _width
 
-    //throw error when matrix's determinant = 0
+    // throw error when matrix's determinant = 0
 
     size_t _size = mat.height();
     Matrix inverse(_size, _size);
 
-    for (int i=0; i<_size; i++)
+    for (int i = 0; i < _size; i++)
         inverse[i][i] = 1;
 
-    for (int k=0; k<_size; k++)
+    for (int k = 0; k < _size; k++)
     {
         std::complex<double> kk = mat[k][k];
-        for (int i=0; i<_size; i++) {
+        for (int i = 0; i < _size; i++)
+        {
             mat[k][i] /= kk;
-            inverse[k][i]/=kk;
+            inverse[k][i] /= kk;
         }
 
-        for (int i=0; i<_size; i++)
+        for (int i = 0; i < _size; i++)
         {
             if (i == k)
                 continue;
             else
             {
-                std::complex<double> div = mat[i][k]/mat[k][k];
-                for (int j=0; j<_size; j++)
+                std::complex<double> div = mat[i][k] / mat[k][k];
+                for (int j = 0; j < _size; j++)
                 {
-                    mat[i][j]-=div*mat[k][j];
-                    inverse[i][j]-=div*inverse[k][j];
+                    mat[i][j] -= div * mat[k][j];
+                    inverse[i][j] -= div * inverse[k][j];
                 }
             }
         }
     }
 
-    for (int i=0; i<_size; i++)
-        for (int j=0; j<_size; j++)
+    for (int i = 0; i < _size; i++)
+        for (int j = 0; j < _size; j++)
             if (abs(inverse[i][j]) < 1.0e-12)
                 inverse[i][j] = 0;
-
 
     return inverse;
 }
