@@ -17,9 +17,9 @@ protected:
 
 public:
     // Getters
-    inline size_t height() { return _height; }
-    inline size_t width() { return _width; }
-    inline std::complex<double> *operator[](size_t i)
+    inline size_t height() const { return _height; }
+    inline size_t width() const { return _width; }
+    inline std::complex<double> *operator[](size_t i) const
     {
         assert(i < _height);
         return matrix[i];
@@ -47,9 +47,9 @@ public:
     std::string str();                                 // done
     void to_file(std::string filename = "matrix.txt"); // done
 
-    //inverse
-    //later to be implemented in separate class
-    static Matrix GaussianInverse (Matrix mat);
+    // inverse
+    // later to be implemented in separate class
+    static Matrix GaussianInverse(Matrix mat);
 };
 
 #endif
