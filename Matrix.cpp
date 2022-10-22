@@ -128,7 +128,7 @@ void Matrix::to_file(std::string filename)
     file << this->str();
 }
 
-std::complex<double> Matrix::D(size_t x_skip, size_t y_skip)
+std::complex<double> Matrix::D(size_t x_skip, size_t y_skip) const
 {
 
     // throw error when _height != _width
