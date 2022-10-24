@@ -70,7 +70,7 @@ Matrix::Matrix(std::string filename)
     }
 }
 
-Matrix::Matrix(Matrix &src)
+Matrix::Matrix(const Matrix &src)
 {
     _height = src._height;
     _width = src._width;
@@ -84,6 +84,38 @@ Matrix::Matrix(Matrix &src)
             matrix[i][j] = src[i][j];
 }
 
+Matrix::Matrix(const Matrix &src, size_t x_skip, size_t y_skip)
+{
+    if (src.height() < 2 || src.width() < 2)
+        throw std::invalid_argument("Matrix with size 1 or less can't have minor");
+
+    if (x_skip > src.height() - 1 || y_skip > src.height() - 1)
+        throw std::invalid_argument("x_skip or y_skip  is greater than minor matrix size");
+
+    _height = src._height - 1;
+    _width = src._width - 1;
+
+    matrix = new std::complex<double> *[_height];
+    for (size_t i = 0; i < _height; i++)
+        matrix[i] = new std::complex<double>[_width];
+
+    size_t i_add, j_add;
+
+    for (size_t i = 0; i < _height; ++i)
+        for (size_t j = 0; j < _width; ++j)
+        {
+            if (y_skip)
+                i_add = i / y_skip;
+            else
+                i_add = 1;
+            if (x_skip)
+                j_add = j / x_skip;
+            else
+                j_add = 1;
+            matrix[i][j] = src[i + i_add][j + j_add];
+        }
+}
+
 Matrix::~Matrix()
 {
 
@@ -93,7 +125,24 @@ Matrix::~Matrix()
     delete matrix;
 }
 
-void Matrix::print()
+void Matrix::to_triangle_form()
+{
+    for (int k = 0; k < _height - 1; k++)
+    {
+
+        for (int i = k + 1; i < _height; i++)
+        {
+
+            std::complex<double> div = (*this)[i][k] / (*this)[k][k];
+            for (int j = k; j < _height; j++)
+            {
+                (*this)[i][j] -= div * (*this)[k][j];
+            }
+        }
+    }
+}
+
+void Matrix::print() const
 {
 
     for (size_t i = 0; i < _height; ++i)
@@ -104,7 +153,7 @@ void Matrix::print()
     }
 }
 
-std::string Matrix::str()
+std::string Matrix::str() const
 {
     std::string s;
     s += std::to_string(_height) + ' ' + std::to_string(_width) + '\n';
@@ -121,42 +170,55 @@ std::string Matrix::str()
     return s;
 }
 
-void Matrix::to_file(std::string filename)
+void Matrix::to_file(std::string filename) const
 {
     std::ofstream file(filename);
 
     file << this->str();
 }
 
-std::complex<double> Matrix::D(size_t x_skip, size_t y_skip) const
+void Matrix::T()
+{
+    std::complex<double> tmp;
+
+    for (size_t i = 0; i < _height; ++i)
+    {
+        for (size_t j = i + 1; j < _width; ++j)
+        {
+            tmp = matrix[i][j];
+            matrix[i][j] = matrix[j][i];
+            matrix[j][i] = tmp;
+        }
+    }
+}
+
+std::complex<double> Matrix::Dminor(size_t x_skip, size_t y_skip) const
+{
+    Matrix minor(*this, x_skip, y_skip);
+    std::complex<double> res(1, 0);
+
+    minor.to_triangle_form();
+
+    for (size_t i = 0; i < minor._height; ++i)
+        res *= minor[i][i];
+
+    return res;
+}
+
+std::complex<double> Matrix::D() const
 {
 
     // throw error when _height != _width
 
     Matrix det(*this);
 
-    for (int k = 0; k < _height - 1; k++)
-    {
-        if (k == y_skip)
-            continue;
+    det.to_triangle_form();
 
-        for (int i = k + 1; i < _height; i++)
-        {
-            if (i == x_skip)
-                continue;
-
-            std::complex<double> div = det[i][k] / det[k][k];
-            for (int j = k; j < _height; j++)
-            {
-                det[i][j] -= div * det[k][j];
-            }
-        }
-    }
-
-    std::complex<double> ans = {1, 0};
-
+    std::complex<double> ans(1, 0);
     for (int k = 0; k < _height; k++)
+    {
         ans *= det[k][k];
+    }
 
     return ans;
 }

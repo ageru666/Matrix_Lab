@@ -13,7 +13,6 @@ protected:
 
     // methods
     Matrix strassenMultiplication(const Matrix &);
-    std::complex<double> determinant();
 
 public:
     // Getters
@@ -29,7 +28,8 @@ public:
     Matrix(size_t a, size_t b, bool random_init = false);      // done
     Matrix(size_t a, size_t b, std::pair<double, double> **M); // done
     Matrix(std::string filename);                              // done
-    Matrix(Matrix &src);                                       // done
+    Matrix(const Matrix &src);                                 // done
+    Matrix(const Matrix &src, size_t x_skip, size_t y_skip);
 
     // Destructor
     ~Matrix();
@@ -40,12 +40,17 @@ public:
     Matrix operator*(const Matrix &);
 
     // Other methods
-    std::complex<double> D(size_t x_skip = -1, size_t y_skip = -1) const;
+    std::complex<double> D() const;
+    std::complex<double> Dminor(size_t x_skip, size_t y_skip) const;
 
     // output
-    void print();                                      // done
-    std::string str();                                 // done
-    void to_file(std::string filename = "matrix.txt"); // done
+    void print() const;                                      // done
+    std::string str() const;                                 // done
+    void to_file(std::string filename = "matrix.txt") const; // done
+
+    // transforamtions
+    void to_triangle_form();
+    void T();
 
     // inverse
     // later to be implemented in separate class
