@@ -1,7 +1,7 @@
-
+#include "doctest.h"
 #include "GaussianInversion.h"
 
-Matrix GaussianInversion::inverse(const Matrix & mat)
+Matrix GaussianInversion::inverse(const Matrix &mat)
 {
 
     if (mat.height() != mat.width())
@@ -51,16 +51,15 @@ Matrix GaussianInversion::inverse(const Matrix & mat)
 
 TEST_CASE("name2")
 {
-Matrix ToInverse("inverse_test_data/test1.txt"); // "inverse_test_data/test1.txt"
-GaussianInversion m;
-Matrix CorrectAnswer("inverse_test_data/answer1.txt");
+    Matrix ToInverse("inverse_test_data/test1.txt"); // "inverse_test_data/test1.txt"
+    GaussianInversion m;
+    Matrix CorrectAnswer("inverse_test_data/answer1.txt");
 
-Matrix Result = m.inverse(ToInverse);
+    Matrix Result = m.inverse(ToInverse);
 
-for (size_t i = 0; i < Result.height(); ++i)
-{
-for (size_t j = 0; j < Result.width(); ++j)
-CHECK(Result[i][j] == CorrectAnswer[i][j]);
-}
-
+    for (size_t i = 0; i < Result.height(); ++i)
+    {
+        for (size_t j = 0; j < Result.width(); ++j)
+            CHECK(Result[i][j] == CorrectAnswer[i][j]);
+    }
 }
