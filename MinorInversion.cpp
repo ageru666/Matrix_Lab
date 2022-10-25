@@ -34,7 +34,7 @@ Matrix MinorInversion::inverse(const Matrix &MatrixToinverse)
 
     return Inversed;
 }
-
+/*
 TEST_CASE("name1")
 {
     Matrix ToInverse("inverse_test_data/test1.txt"); // "inverse_test_data/test1.txt"
@@ -56,3 +56,4 @@ TEST_CASE("name1")
 
     Result2.to_file("inverse_test_data/amswer2.txt");
 }
+*/
