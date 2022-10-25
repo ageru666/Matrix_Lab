@@ -35,12 +35,11 @@ Matrix MinorInversion::inverse(const Matrix &MatrixToinverse)
     return Inversed;
 }
 
-/*
 TEST_CASE("name1")
 {
-    Matrix ToInverse("inverse_test_data\\test1.txt"); // "inverse_test_data/test1.txt"
+    Matrix ToInverse("inverse_test_data/test1.txt"); // "inverse_test_data/test1.txt"
     MinorInversion m;
-    Matrix CorrectAnswer("inverse_test_data\\answer1.txt");
+    Matrix CorrectAnswer("inverse_test_data/answer1.txt");
 
     Matrix Result = m.inverse(ToInverse);
 
@@ -50,11 +49,10 @@ TEST_CASE("name1")
             CHECK(Result[i][j] == CorrectAnswer[i][j]);
     }
 
-    Matrix ToInverse2("inverse_test_data\\test2.txt"); // "inverse_test_data/test1.txt"
+    Matrix ToInverse2("inverse_test_data/test2.txt"); // "inverse_test_data/test1.txt"
     Matrix Result2 = m.inverse(ToInverse2);
 
     Matrix minor(ToInverse2, 1, 1);
 
-    Result2.to_file("inverse_test_data\\amswer2.txt");
+    Result2.to_file("inverse_test_data/amswer2.txt");
 }
-*/
