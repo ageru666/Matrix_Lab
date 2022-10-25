@@ -9,4 +9,6 @@ add_executable(Matrix_Lab
         main.cpp
         Matrix.cpp
         Matrix.h
-        Inversion.hpp)
+        Inversion.hpp
+        MinorInversion.hpp
+        MinorInversion.cpp GaussianInversion.cpp GaussianInversion.h)

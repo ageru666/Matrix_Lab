@@ -52,9 +52,6 @@ public:
     void to_triangle_form();
     void T();
 
-    // inverse
-    // later to be implemented in separate class
-    static Matrix GaussianInverse(Matrix mat);
 };
 
 #endif
