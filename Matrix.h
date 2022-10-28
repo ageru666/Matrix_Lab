@@ -35,9 +35,10 @@ public:
     ~Matrix();
 
     // Operators overload
-    Matrix operator+(const Matrix &);
-    Matrix operator-(const Matrix &);
-    Matrix operator*(const Matrix &);
+    Matrix operator=(const Matrix &);
+    Matrix operator+(const Matrix & other);
+    Matrix operator-(const Matrix & other);
+    Matrix operator*(const Matrix & other);
 
     // Other methods
     std::complex<double> D() const;
