@@ -1,5 +1,6 @@
 #include <complex>
 #include <cassert>
+#include <iostream>
 
 #ifndef _MATRIX_H
 #define _MATRIX_H
@@ -20,6 +21,7 @@ public:
     inline size_t width() const { return _width; }
     inline std::complex<double> *operator[](size_t i) const
     {
+
         assert(i < _height);
         return matrix[i];
     };

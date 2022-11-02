@@ -7,12 +7,11 @@ using std::endl;
 Matrix MinorInversion::inverse(const Matrix &MatrixToinverse)
 {
 
+    std::cout << "START Inverse " << MatrixToinverse.width() << ' ' << MatrixToinverse.height() << std::endl;
     size_t matrix_size;
     matrix_size = MatrixToinverse.width();
 
     std::complex<double> D = MatrixToinverse.D();
-
-    std::cout << "D div: " << D << endl;
 
     Matrix Inversed(MatrixToinverse.height(), MatrixToinverse.width());
 
@@ -22,16 +21,20 @@ Matrix MinorInversion::inverse(const Matrix &MatrixToinverse)
         {
 
             Inversed[x][y] = MatrixToinverse.Dminor(x, y);
+
             if ((x + y) % 2 == 1)
                 Inversed[x][y] = -Inversed[x][y];
 
+            if (x == 1 or y == 1)
+            {
+            }
             Inversed[x][y] /= D;
         }
     }
 
     return Inversed;
 }
-
+/*
 TEST_CASE("name1")
 {
     Matrix ToInverse("inverse_test_data/test1.txt"); // "inverse_test_data/test1.txt"
@@ -59,3 +62,4 @@ TEST_CASE("name1")
             CHECK(Result[i][j] == CorrectAnswer[i][j]);
     }
 }
+*/

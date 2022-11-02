@@ -86,6 +86,7 @@ Matrix::Matrix(const Matrix &src)
 
 Matrix::Matrix(const Matrix &src, size_t x_skip, size_t y_skip)
 {
+
     if (src.height() < 2 || src.width() < 2)
         throw std::invalid_argument("Matrix with size 1 or less can't have minor");
 
@@ -96,23 +97,21 @@ Matrix::Matrix(const Matrix &src, size_t x_skip, size_t y_skip)
     _width = src._width - 1;
 
     matrix = new std::complex<double> *[_height];
-    for (size_t i = 0; i < _height; i++)
+    for (size_t i = 0; i < _height; ++i)
         matrix[i] = new std::complex<double>[_width];
 
     size_t i_add, j_add;
-
+    std::complex<double> tmp;
     for (size_t i = 0; i < _height; ++i)
         for (size_t j = 0; j < _width; ++j)
         {
-            if (y_skip)
-                i_add = i / y_skip;
-            else
-                i_add = 1;
-            if (x_skip)
-                j_add = j / x_skip;
-            else
-                j_add = 1;
-            matrix[i][j] = src[i + i_add][j + j_add];
+            i_add = (i < y_skip) ? 0 : 1;
+
+            j_add = (j < x_skip) ? 0 : 1;
+
+            tmp = src[i + i_add][j + j_add];
+
+            matrix[i][j] = tmp;
         }
 }
 
@@ -256,9 +255,13 @@ std::complex<double> Matrix::Dminor(size_t x_skip, size_t y_skip) const
     std::complex<double> res(1, 0);
 
     minor.to_triangle_form();
+    // std::cout << minor.str() << std::endl;
 
     for (size_t i = 0; i < minor._height; ++i)
+    {
+
         res *= minor[i][i];
+    }
 
     return res;
 }
