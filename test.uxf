@@ -1,0 +1,44 @@
+<diagram program="umletino" version="15.0.0"><zoom_level>12</zoom_level><help_text>Space for diagram notes</help_text><element><id>UMLClass</id><coordinates><x>468</x><y>26</y><w>360</w><h>444</h></coordinates><panel_attributes>Matrix
+--
+#matrix : std::complex&lt;double&gt; **
+#width: size_t
+#height: size_t
+--
+#strassenMultiplication(in Matrix): Matrix
+#determinant(): std::complex&lt;double&gt;
+
++width(): size_t
++height(): size_t
++operator[] (index: size_t): std::complex&lt;double&gt; *
+
++operator-(in Matrix) : Matrix
++opeator+(in Matrix) : Matrix
++operator*(in Matrix) : Matrix 
+
++Matrix(size_t, size_t, bool)
++Matrix(size_t, size_t, std::pair&lt;double, double&gt; **)
++Matrix(std::srting: filename)
++&lt;&lt;destructor&gt;&gt;Matrix()
+
++D() : std::complex&lt;double&gt;
++copy(): Matrix
++inversion()
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>540</x><y>518</y><w>168</w><h>72</h></coordinates><panel_attributes>/Inversion/
+--
+/+inverse(Matrix): Matrix/</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>252</x><y>650</y><w>300</w><h>96</h></coordinates><panel_attributes>MinorInversion
+--
+#inverseSignsOnDiagonals(inout  Matrix)
+
++inverse(in Matrix) : Matrix
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>792</x><y>662</y><w>264</w><h>72</h></coordinates><panel_attributes>GausianInversion
+--
++inverse(in Matrix): Matrix</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>348</x><y>578</y><w>216</w><h>96</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>160;10;10;60</additional_attributes></element><element><id>Relation</id><coordinates><x>696</x><y>578</y><w>252</w><h>108</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;190;70</additional_attributes></element><element><id>Relation</id><coordinates><x>612</x><y>458</y><w>36</w><h>84</h></coordinates><panel_attributes>lt=&lt;.
+</panel_attributes><additional_attributes>10;10;10;50</additional_attributes></element><element><id>UMLNote</id><coordinates><x>96</x><y>206</y><w>300</w><h>36</h></coordinates><panel_attributes>operator* just call strassenMultiplication
+bg=blue</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>384</x><y>218</y><w>108</w><h>96</h></coordinates><panel_attributes>lt=.</panel_attributes><additional_attributes>70;60;10;10</additional_attributes></element><element><id>UMLNote</id><coordinates><x>120</x><y>374</y><w>228</w><h>84</h></coordinates><panel_attributes>D() method calls private 
+method determinant.
+Short naming ispired by 
+numpy
+bg=blue</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>336</x><y>410</y><w>156</w><h>48</h></coordinates><panel_attributes>lt=.</panel_attributes><additional_attributes>110;20;10;10</additional_attributes></element><element><id>UMLNote</id><coordinates><x>108</x><y>278</y><w>228</w><h>48</h></coordinates><panel_attributes>if bool value set to true:
+random initialization
+bg=blue</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>324</x><y>290</y><w>168</w><h>96</h></coordinates><panel_attributes>lt=.</panel_attributes><additional_attributes>120;60;10;10</additional_attributes></element></diagram>

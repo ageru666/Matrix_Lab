@@ -55,4 +55,10 @@ TEST_CASE("name1")
     Matrix minor(ToInverse2, 1, 1);
 
     Result2.to_file("inverse_test_data/amswer2.txt");
+
+    for (size_t i = 0; i < Result.height(); ++i)
+    {
+        for (size_t j = 0; j < Result.width(); ++j)
+            CHECK(Result[i][j] == CorrectAnswer[i][j]);
+    }
 }
