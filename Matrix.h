@@ -35,10 +35,10 @@ public:
     ~Matrix();
 
     // Operators overload
-    Matrix operator=(const Matrix &);
-    Matrix operator+(const Matrix & other);
-    Matrix operator-(const Matrix & other);
-    Matrix operator*(const Matrix & other);
+    Matrix operator=(const Matrix &) const;
+    Matrix operator+(const Matrix &other) const;
+    Matrix operator-(const Matrix &other) const;
+    Matrix operator*(const Matrix &other) const;
 
     // Other methods
     std::complex<double> D() const;
@@ -52,7 +52,6 @@ public:
     // transforamtions
     void to_triangle_form();
     void T();
-
 };
 
 #endif
