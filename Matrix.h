@@ -7,10 +7,12 @@
 
 class Matrix
 {
+    friend class MatrixThreading;
+
 protected:
-    std::complex<double> **matrix;
-    size_t _height;
-    size_t _width;
+    std::complex<double> **matrix = nullptr;
+    size_t _height = 0;
+    size_t _width = 0;
 
     // methods
     Matrix strassenMultiplication(const Matrix &);
@@ -27,17 +29,19 @@ public:
     };
 
     // Constructors
+
     Matrix(size_t a, size_t b, bool random_init = false);      // done
     Matrix(size_t a, size_t b, std::pair<double, double> **M); // done
     Matrix(std::string filename);                              // done
     Matrix(const Matrix &src);                                 // done
     Matrix(const Matrix &src, size_t x_skip, size_t y_skip);
+    Matrix() = default;
 
     // Destructor
     ~Matrix();
 
     // Operators overload
-    Matrix operator=(const Matrix &) const;
+    Matrix &operator=(const Matrix &) = default;
     Matrix operator+(const Matrix &other) const;
     Matrix operator-(const Matrix &other) const;
     Matrix operator*(const Matrix &other) const;

@@ -1,6 +1,6 @@
 #include "GaussianInversion.h"
 
-Matrix GaussianInversion::inverse(const Matrix &mat)
+Matrix GaussianInversion::inverse(const Matrix &mat, bool _)
 {
 
     if (mat.height() != mat.width())

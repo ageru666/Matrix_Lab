@@ -125,11 +125,13 @@ Matrix::~Matrix()
 }
 
 /// operators
-Matrix Matrix::operator=(const Matrix &) const
+/*
+Matrix &Matrix::operator=(const Matrix &other) const
 {
-    Matrix ret(*this);
+    Matrix ret(other);
     return ret;
 }
+*/
 
 Matrix Matrix::operator+(const Matrix &other) const
 {

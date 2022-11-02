@@ -5,7 +5,7 @@
 class Inversion
 {
 public:
-    virtual Matrix inverse(const Matrix &A) { return Matrix(1, 1, true); } // DA FAQ?
+    virtual Matrix inverse(const Matrix &A, bool) { return Matrix(1, 1, true); } // DA FAQ?
 };
 
 #endif

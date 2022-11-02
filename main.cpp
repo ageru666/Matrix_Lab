@@ -10,9 +10,11 @@ int main()
     GaussianInversion G;
     MinorInversion M;
 
-    Matrix mm(3, 3, true);
+    // Matrix mm(3, 3, true);
 
-    T.test_and_write(M, "out.txt");
+    // std::cout << (M.inverse(mm, true) * mm).str() << std::endl;
+
+    T.test_and_write(G, "out.txt", true);
 
     /*
     Matrix a("C:\\Users\\spery\\CLionProjects\\Matrix_Lab\\inverse_test_data\\test1.txt");
