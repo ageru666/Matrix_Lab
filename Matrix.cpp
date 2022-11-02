@@ -125,6 +125,62 @@ Matrix::~Matrix()
     delete matrix;
 }
 
+/// operators
+Matrix Matrix::operator=(const Matrix &) {
+    Matrix ret(*this);
+    return ret;
+}
+
+Matrix Matrix::operator+(const Matrix & other) {
+    if (this->height() != other.height() || this->width() != other.width())
+        throw std::invalid_argument("Can't add matrices with different sizes");
+
+    Matrix a(*this);
+    Matrix ret(this->height(), this->width());
+
+
+    for (int i=0; i<this->height(); i++)
+        for (int j=0; j<this->width(); j++)
+            ret[i][j] = a[i][j] + other[i][j];
+
+    return ret;
+}
+
+Matrix Matrix::operator-(const Matrix & other) {
+    if (this->height() != other.height() || this->width() != other.width())
+        throw std::invalid_argument("Can't subtract matrices with different sizes");
+
+    Matrix a(*this);
+    Matrix ret(this->height(), this->width());
+
+
+    for (int i=0; i<this->height(); i++)
+        for (int j=0; j<this->width(); j++)
+            ret[i][j] = a[i][j] - other[i][j];
+
+    return ret;
+}
+
+Matrix Matrix::operator*(const Matrix & other) {
+
+    if (this->width() != other.height())
+        throw std::invalid_argument("Can't multiply this matrices");
+
+    Matrix a(*this);
+    Matrix ret(a.height(), other.width());
+
+    // O(n^3) !! JACKPOT !!
+    for (int x=0; x<a.height(); x++)
+        for (int k=0; k<other.width(); k++)
+        {
+            ret[x][k] = 0;
+            for (int i=0; i<a.width(); i++)
+                    ret[x][k]+=a[x][i]*other[i][k];
+        }
+
+    return ret;
+}
+
 void Matrix::to_triangle_form()
 {
     for (int k = 0; k < _height - 1; k++)

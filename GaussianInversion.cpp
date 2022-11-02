@@ -1,7 +1,4 @@
-
-#include "Helper.hpp"
 #include "GaussianInversion.h"
-#include "doctest.h"
 
 Matrix GaussianInversion::inverse(const Matrix &mat)
 {
@@ -51,9 +48,9 @@ Matrix GaussianInversion::inverse(const Matrix &mat)
     return inverse;
 }
 
-TEST_CASE("name2")
+/*TEST_CASE("name2")
 {
-    Matrix ToInverse("inverse_test_data/test1.txt"); // "inverse_test_data/test1.txt"
+    Matrix ToInverse("inverse_test_data/test1.txt");
     GaussianInversion m;
     Matrix CorrectAnswer("inverse_test_data/answer1.txt");
 
@@ -66,3 +63,36 @@ TEST_CASE("name2")
             CHECK(check::eq(Result[i][j] CorrectAnswer[i][j]));
     }
 }
+
+TEST_CASE("add check")
+{
+    Matrix first("C:\\Users\\spery\\CLionProjects\\Matrix_Lab\\inverse_test_data\\test1.txt");
+    Matrix second("C:\\Users\\spery\\CLionProjects\\Matrix_Lab\\inverse_test_data\\test2.txt");
+
+    Matrix CorrectAnswer("C:\\Users\\spery\\CLionProjects\\Matrix_Lab\\inverse_test_data\\op_ans.txt");
+
+    Matrix Result = first + second;
+
+    for (size_t i = 0; i < Result.height(); ++i)
+    {
+        for (size_t j = 0; j < Result.width(); ++j)
+            CHECK(Result[i][j] == CorrectAnswer[i][j]);
+    }
+}*/
+/*
+TEST_CASE("add check")
+{
+    Matrix first("C:\\Users\\spery\\CLionProjects\\Matrix_Lab\\inverse_test_data\\test1.txt");
+    Matrix second("C:\\Users\\spery\\CLionProjects\\Matrix_Lab\\inverse_test_data\\test2.txt");
+
+    Matrix CorrectAnswer("C:\\Users\\spery\\CLionProjects\\Matrix_Lab\\inverse_test_data\\op_ans.txt");
+
+    Matrix Result = first + second;
+
+    for (size_t i = 0; i < Result.height(); ++i)
+    {
+        for (size_t j = 0; j < Result.width(); ++j)
+            CHECK(Result[i][j] == CorrectAnswer[i][j]);
+    }
+}
+*/
