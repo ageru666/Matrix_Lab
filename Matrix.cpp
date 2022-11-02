@@ -266,6 +266,11 @@ std::complex<double> Matrix::Dminor(size_t x_skip, size_t y_skip) const
     return res;
 }
 
+void Matrix::DminorVoid(size_t x_skip, size_t y_skip, std::complex<double> &ret) const
+{
+    ret = Dminor(x_skip, y_skip);
+}
+
 std::complex<double> Matrix::D() const
 {
 

@@ -7,6 +7,8 @@ class MinorInversion : Inversion
 {
 private:
     std::complex<double> findMinor(const Matrix &, size_t, size_t);
+    Matrix inverse_no_threading(const Matrix &);
+    Matrix inverse_with_threading(const Matrix &);
 
 public:
     Matrix inverse(const Matrix &) override;

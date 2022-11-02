@@ -45,6 +45,7 @@ public:
     // Other methods
     std::complex<double> D() const;
     std::complex<double> Dminor(size_t x_skip, size_t y_skip) const;
+    void DminorVoid(size_t x_skip, size_t y_skip, std::complex<double> &) const;
 
     // output
     void print() const;                                      // done
