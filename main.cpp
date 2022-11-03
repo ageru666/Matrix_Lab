@@ -6,7 +6,7 @@
 
 int main()
 {
-    Matrix m(3, 3, true);
+    Matrix m("C:\\Users\\spery\\CLionProjects\\Matrix_Lab\\inverse_test_data\\test1.txt");
     GaussianInversion G;
 
    Matrix r =  G.inverse(m);
