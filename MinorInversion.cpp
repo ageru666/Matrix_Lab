@@ -1,7 +1,5 @@
 #include "MinorInversion.hpp"
 #include <iostream>
-#include <boost/asio/thread_pool.hpp>
-#include <boost/asio/post.hpp>
 
 using std::cout;
 using std::endl;

@@ -1,98 +1,59 @@
 #include "GaussianInversion.h"
 
-Matrix GaussianInversion::inverse(const Matrix &mat, bool _)
+Matrix GaussianInversion::inverse(const Matrix &mat, bool)
 {
 
     if (mat.height() != mat.width())
         throw std::invalid_argument("The matrix in not square");
 
-    if (!abs(mat.D()))
-        throw std::invalid_argument("Determinant is zero");
-
     size_t _size = mat.height();
     Matrix inverse(_size, _size);
+    Matrix src (mat);
+
+   /* for (int i=0; i<src.height() ; i++) {
+        for (int j = 0; j < src.width(); j++)
+            std::cout << src[i][j] << ' ';
+        std::cout<<std::endl;
+    }*/
 
     for (int i = 0; i < _size; i++)
         inverse[i][i] = 1;
 
-    for (int k = 0; k < _size; k++)
+    for (int k=0; k<_size; k++)
     {
-        std::complex<double> kk = mat[k][k];
-        for (int i = 0; i < _size; i++)
+        std::complex<double> diag = src[k][k];
+        for (int i=0; i<_size; i++)
         {
-            mat[k][i] /= kk;
-            inverse[k][i] /= kk;
+            inverse[k][i] /=diag;
+            src[k][i] /= diag;
         }
-
-        for (int i = 0; i < _size; i++)
+        src[k][k] = {1,0};
+        for (int i=0; i<_size; i++)
         {
-            if (i == k)
+            if (k == i)
                 continue;
-            else
-            {
-                std::complex<double> div = mat[i][k] / mat[k][k];
-                for (int j = 0; j < _size; j++)
-                {
-                    mat[i][j] -= div * mat[k][j];
+            else {
+                std::complex<double> div = src[i][k] / src[k][k];
+                for (int j = 0; j < _size; j++) {
+                    src[i][j] -= div * src[k][j];
                     inverse[i][j] -= div * inverse[k][j];
                 }
             }
         }
     }
 
-    for (int i = 0; i < _size; i++)
-        for (int j = 0; j < _size; j++)
-            if (abs(inverse[i][j]) < 1.0e-12)
-                inverse[i][j] = 0;
+   /* for (int i=0; i<src.height() ; i++) {
+        for (int j = 0; j < src.width(); j++)
+            std::cout << src[i][j] << ' ';
+        std::cout<<std::endl;
+    }
+
+    std::cout<<std::endl;
+    for (int i=0; i<inverse.height() ; i++) {
+        for (int j = 0; j < inverse.width(); j++)
+            std::cout << inverse[i][j] << ' ';
+        std::cout<<std::endl;
+    }*/
 
     return inverse;
 }
-
-/*TEST_CASE("name2")
-{
-    Matrix ToInverse("inverse_test_data/test1.txt");
-    GaussianInversion m;
-    Matrix CorrectAnswer("inverse_test_data/answer1.txt");
-
-    Matrix Result = m.inverse(ToInverse);
-    check::eq(1.2, 1.2);
-
-    for (size_t i = 0; i < Result.height(); ++i)
-    {
-        for (size_t j = 0; j < Result.width(); ++j)
-            CHECK(check::eq(Result[i][j] CorrectAnswer[i][j]));
-    }
-}
-
-TEST_CASE("add check")
-{
-    Matrix first("C:\\Users\\spery\\CLionProjects\\Matrix_Lab\\inverse_test_data\\test1.txt");
-    Matrix second("C:\\Users\\spery\\CLionProjects\\Matrix_Lab\\inverse_test_data\\test2.txt");
-
-    Matrix CorrectAnswer("C:\\Users\\spery\\CLionProjects\\Matrix_Lab\\inverse_test_data\\op_ans.txt");
-
-    Matrix Result = first + second;
-
-    for (size_t i = 0; i < Result.height(); ++i)
-    {
-        for (size_t j = 0; j < Result.width(); ++j)
-            CHECK(Result[i][j] == CorrectAnswer[i][j]);
-    }
-}*/
-/*
-TEST_CASE("add check")
-{
-    Matrix first("C:\\Users\\spery\\CLionProjects\\Matrix_Lab\\inverse_test_data\\test1.txt");
-    Matrix second("C:\\Users\\spery\\CLionProjects\\Matrix_Lab\\inverse_test_data\\test2.txt");
-
-    Matrix CorrectAnswer("C:\\Users\\spery\\CLionProjects\\Matrix_Lab\\inverse_test_data\\op_ans.txt");
-
-    Matrix Result = first + second;
-
-    for (size_t i = 0; i < Result.height(); ++i)
-    {
-        for (size_t j = 0; j < Result.width(); ++j)
-            CHECK(Result[i][j] == CorrectAnswer[i][j]);
-    }
-}
-*/

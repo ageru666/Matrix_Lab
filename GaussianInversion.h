@@ -6,7 +6,7 @@
 class GaussianInversion : Inversion
 {
 public:
-    Matrix inverse(const Matrix &, bool) override;
+    Matrix inverse(const Matrix &mat, bool = false ) override;
 };
 
 #endif // MATRIX_LAB_GAUSSIANINVERSION_H
