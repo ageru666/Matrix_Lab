@@ -133,6 +133,17 @@ Matrix &Matrix::operator=(const Matrix &other) const
 }
 */
 
+Matrix &Matrix::operator=(const Matrix src) {
+
+    if (src.height() != this->height() || src.width() != this->width())
+        throw std::invalid_argument("Matrices with different sizes");
+
+    for (int i=0; i<this->_height; i++)
+        for (int j=0; j<this->_width; j++)
+            this->matrix[i][j] = src[i][j];
+
+}
+
 Matrix Matrix::operator+(const Matrix &other) const
 {
     if (this->height() != other.height() || this->width() != other.width())
@@ -182,6 +193,70 @@ Matrix Matrix::operator*(const Matrix &other) const
         }
 
     return ret;
+}
+
+Matrix Matrix::SubMatrix(size_t r1, size_t c1, size_t r2, size_t c2) {
+
+    Matrix result(r2 - r1, c2 - c1);
+    for (size_t _width = r1, i = 0; _width < r2; _width++, i++)
+    {
+        for (size_t _height = c1, j = 0; _height < c2; _height++, j++)
+        {
+            result.matrix[i, j] = matrix[_width, _height];
+        }
+    }
+    return result;
+}
+
+Matrix Matrix::CombineSubMatrices(Matrix a11, Matrix a12, Matrix a21, Matrix a22)
+{
+    Matrix result(a11._width * 2, a11._width * 2);
+    size_t  shift = a11._width;
+
+
+    for (size_t width = 0; width < a11._width; width++)
+        for (int height = 0; height < a11._height; height++)
+        {
+            result[width][height] = a11[width][height];
+            result.matrix[width, height + shift] = a12[width, height];
+            result.matrix[width + shift, height] = a21[width, height];
+            result.matrix[width + shift, width + shift] = a22[width, height];
+        }
+    return result;
+}
+
+Matrix Matrix::StrassenMultiply(Matrix a, Matrix b) {
+    int N = b._width;
+
+    // if (N <= 2)
+    //  return a * b; //Basic multiply
+
+    int halfN = N / 2;
+
+    auto a11 = a.SubMatrix(0, halfN, 0, halfN);
+    auto a12 = a.SubMatrix(0, halfN, halfN, N);
+    auto a21 = a.SubMatrix(halfN, N, 0, halfN);
+    auto a22 = a.SubMatrix(halfN, N, halfN, N);
+
+    auto b11 = b.SubMatrix(0, halfN, 0, halfN);
+    auto b12 = b.SubMatrix(0, halfN, halfN, N);
+    auto b21 = b.SubMatrix(halfN, N, 0, halfN);
+    auto b22 = b.SubMatrix(halfN, N, halfN, N);
+
+    Matrix m1 = StrassenMultiply(a11 + a22, b11 + b22);
+    Matrix m2 = StrassenMultiply(a21 + a22, b11);
+    Matrix m3 = StrassenMultiply(a11, b12 - b22);
+    Matrix m4 = StrassenMultiply(a22, b21 - b11);
+    Matrix m5 = StrassenMultiply(a11 + a12, b22);
+    Matrix m6 = StrassenMultiply(a21 - a11, b11 + b12);
+    Matrix m7 = StrassenMultiply(a12 - a22, b21 + b22);
+
+    Matrix c11 = ((m1 + m4) + (m7 - m5));
+    Matrix c12 = (m3 + m5);
+    Matrix c21 = (m2 + m4);
+    Matrix c22 = ((m1 - m2) + (m3 + m4));
+
+    return CombineSubMatrices(c11, c12, c21, c22);
 }
 
 void Matrix::to_triangle_form()

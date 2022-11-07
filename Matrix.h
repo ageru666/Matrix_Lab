@@ -14,9 +14,6 @@ protected:
     size_t _height = 0;
     size_t _width = 0;
 
-    // methods
-    Matrix strassenMultiplication(const Matrix &);
-
 public:
     // Getters
     inline size_t height() const { return _height; }
@@ -41,14 +38,17 @@ public:
     ~Matrix();
 
     // Operators overload
-    Matrix &operator=(const Matrix &) = default;
+    Matrix &operator=(const Matrix src);
     Matrix operator+(const Matrix &other) const;
     Matrix operator-(const Matrix &other) const;
     Matrix operator*(const Matrix &other) const;
+    Matrix StrassenMultiply(Matrix a, Matrix b);
 
     // Other methods
     std::complex<double> D() const;
     std::complex<double> Dminor(size_t x_skip, size_t y_skip) const;
+    Matrix SubMatrix(size_t r1, size_t c1, size_t r2, size_t c2);
+    Matrix CombineSubMatrices(Matrix a11, Matrix a12, Matrix a21, Matrix a22);
     void DminorVoid(size_t x_skip, size_t y_skip, std::complex<double> &) const;
 
     // output

@@ -6,9 +6,6 @@ Matrix GaussianInversion::inverse(const Matrix &mat, bool)
     if (mat.height() != mat.width())
         throw std::invalid_argument("The matrix in not square");
 
-    if (abs(mat.D()) == 0)
-        throw std::invalid_argument("Inverse matrix doesn't exist");
-
     size_t _size = mat.height();
     Matrix inverse(_size, _size);
     Matrix src (mat);
@@ -25,27 +22,9 @@ Matrix GaussianInversion::inverse(const Matrix &mat, bool)
 
     for (int k=0; k<_size; k++)
     {
-       /* if (!abs(src[k][k]))
-        {
-            bool br = false;
-            for (int i=0; i<_size; i++)
-            {
-                if (abs(src[i][k]))
-                {
-                    for (int j=0; j<_size; j++)
-                    {
-                        swap(src[k][j], src[i][j]);
-                        swap(inverse[k][j], inverse[i][j]);
-                    }
-                    br = true;
-                    break;
-                }
-            }
-            if (!br)
-                throw std::invalid_argument("Inverse matrix doesn't exist");
-        }*/
-
         std::complex<double> diag = src[k][k];
+        if (!abs(diag))
+            throw std::invalid_argument("Inverse matrix doesn't exist");
         for (int i=0; i<_size; i++)
         {
             inverse[k][i] /=diag;
@@ -68,19 +47,6 @@ Matrix GaussianInversion::inverse(const Matrix &mat, bool)
             }
         }
     }
-
-   /* for (int i=0; i<src.height() ; i++) {
-        for (int j = 0; j < src.width(); j++)
-            std::cout << src[i][j] << ' ';
-        std::cout<<std::endl;
-    }
-
-    std::cout<<std::endl;
-    for (int i=0; i<inverse.height() ; i++) {
-        for (int j = 0; j < inverse.width(); j++)
-            std::cout << inverse[i][j] << ' ';
-        std::cout<<std::endl;
-    }*/
 
     return inverse;
 }

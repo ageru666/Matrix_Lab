@@ -6,12 +6,12 @@
 
 int main()
 {
-    Matrix m("C:\\Users\\spery\\CLionProjects\\Matrix_Lab\\inverse_test_data\\test1.txt");
-    GaussianInversion G;
+    Matrix k(4,4,true);
 
-   Matrix r =  G.inverse(m);
+    GaussianInversion g;
 
-   Matrix e = m*r;
+   Matrix m = g.inverse(k);
+   Matrix e = m*k;
 
     for (int i=0; i<e.height() ; i++) {
         for (int j = 0; j < e.width(); j++)
