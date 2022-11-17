@@ -13,7 +13,7 @@ protected:
     std::complex<double> **matrix = nullptr;
     size_t _height = 0;
     size_t _width = 0;
-
+   
 public:
     // Getters
     inline size_t height() const { return _height; }
@@ -33,7 +33,8 @@ public:
     Matrix(const Matrix &src);                                 // done
     Matrix(const Matrix &src, size_t x_skip, size_t y_skip);
     Matrix() = default;
-
+   
+   
     // Destructor
     ~Matrix();
 
@@ -42,13 +43,13 @@ public:
     Matrix operator+(const Matrix &other) const;
     Matrix operator-(const Matrix &other) const;
     Matrix operator*(const Matrix &other) const;
-    Matrix StrassenMultiply(Matrix a, Matrix b);
+
+    Matrix Strassen(Matrix A, Matrix B, size_t N);
 
     // Other methods
     std::complex<double> D() const;
     std::complex<double> Dminor(size_t x_skip, size_t y_skip) const;
-    Matrix SubMatrix(size_t r1, size_t c1, size_t r2, size_t c2);
-    Matrix CombineSubMatrices(Matrix a11, Matrix a12, Matrix a21, Matrix a22);
+  
     void DminorVoid(size_t x_skip, size_t y_skip, std::complex<double> &) const;
 
     // output
@@ -59,6 +60,7 @@ public:
     // transforamtions
     void to_triangle_form();
     void T();
+  
 };
 
 #endif
